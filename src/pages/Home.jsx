@@ -42,6 +42,30 @@ const BENEFITS = [
     title: 'Direct Factory Access',
     desc: 'Eliminate middlemen and sourcing brokers — connect directly with manufacturers and factory wholesalers.',
     color: 'from-purple-500 to-pink-600'
+  },
+  {
+    icon: Users,
+    title: 'Dedicated Buyer Support',
+    desc: 'Get personalized sourcing assistance from our wholesale experts for every bulk order and supplier match.',
+    color: 'from-sky-500 to-cyan-600'
+  },
+  {
+    icon: CheckCircle,
+    title: 'Secure Escrow Payments',
+    desc: 'Protect every transaction with escrow-backed checkout and dispute support for trusted bulk procurement.',
+    color: 'from-lime-500 to-emerald-600'
+  },
+  {
+    icon: Award,
+    title: 'Quality Assurance Programs',
+    desc: 'Access certified products with quality checks, sample approvals, and on-time delivery commitments.',
+    color: 'from-fuchsia-500 to-violet-600'
+  },
+  {
+    icon: Package,
+    title: 'Flexible MOQ & Logistics',
+    desc: 'Choose flexible minimum order quantities and logistics options to scale inventory without excess risk.',
+    color: 'from-indigo-500 to-blue-600'
   }
 ];
 
