@@ -72,13 +72,13 @@ export const Footer = () => {
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-sm">
               The leading SaaS platform connecting e-commerce brands, retailers, and corporate buyers directly with verified factory wholesalers worldwide.
             </p>
-            <div className="flex items-center space-x-4 pt-2">
+            <div className="flex flex-wrap items-center gap-2.5 pt-2">
               <div className="flex items-center space-x-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-800/60">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 flex-shrink-0" />
                 <span>100% Verified Wholesalers</span>
               </div>
               <div className="flex items-center space-x-2 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-3 py-1.5 rounded-xl border border-blue-200 dark:border-blue-800/60">
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4 flex-shrink-0" />
                 <span>Escrow Buyer Protection</span>
               </div>
             </div>

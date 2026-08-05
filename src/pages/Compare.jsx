@@ -40,10 +40,10 @@ export default function Compare() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F17]">
       <div className="bg-white dark:bg-[#090C12] border-b border-gray-100 dark:border-gray-800 py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white flex items-center space-x-3">
-              <Scale className="w-7 h-7 text-brand-600" />
+              <Scale className="w-7 h-7 text-brand-600 flex-shrink-0" />
               <span>Product Comparison Matrix</span>
             </h1>
             <p className="text-sm text-gray-500 mt-1">
@@ -52,7 +52,7 @@ export default function Compare() {
           </div>
           <button
             onClick={clearCompare}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-sm font-semibold border border-red-200 dark:border-red-900"
+            className="flex items-center justify-center space-x-2 px-4 py-2 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-sm font-semibold border border-red-200 dark:border-red-900 w-full sm:w-auto"
           >
             <Trash2 className="w-4 h-4" />
             <span>Clear All</span>
@@ -64,7 +64,7 @@ export default function Compare() {
         <table className="w-full border-separate border-spacing-2 min-w-[700px]">
           <thead>
             <tr>
-              <th className="w-44 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider p-3">
+              <th className="w-44 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider p-3 sticky left-0 bg-gray-50 dark:bg-[#0B0F17] z-10">
                 Feature
               </th>
               {compareItems.map(prod => (
@@ -94,7 +94,7 @@ export default function Compare() {
           <tbody>
             {COMPARE_FIELDS.map(({ label, getValue, highlight }) => (
               <tr key={label} className="group">
-                <td className="text-xs font-semibold text-gray-600 dark:text-gray-400 p-3 bg-gray-50/60 dark:bg-gray-800/30 rounded-xl">
+                <td className="text-xs font-semibold text-gray-600 dark:text-gray-400 p-3 bg-gray-100 dark:bg-gray-800/90 rounded-xl sticky left-0 z-10 backdrop-blur-md">
                   {label}
                 </td>
                 {compareItems.map((prod, idx) => {

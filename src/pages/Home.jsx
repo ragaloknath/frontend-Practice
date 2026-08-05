@@ -9,6 +9,7 @@ import { useProducts } from '../context/ProductContext';
 import { useToast } from '../context/ToastContext';
 import { ProductCard } from '../components/products/ProductCard';
 import { RatingStars } from '../components/common/RatingStars';
+import { CategoryIcon } from '../components/common/CategoryIcon';
 import { INITIAL_TESTIMONIALS, INITIAL_FAQS } from '../services/initialData';
 
 const STATS = [
@@ -310,7 +311,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {tabProducts.map((product, i) => (
               <motion.div
                 key={product.id}
@@ -348,7 +349,7 @@ export default function Home() {
               <span>See all</span><ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {trendingProducts.map((product, i) => (
               <motion.div
                 key={product.id}
@@ -508,7 +509,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
             {categories.map((cat, i) => (
               <motion.div
                 key={cat.id}
@@ -519,17 +520,19 @@ export default function Home() {
               >
                 <Link
                   to={`/products?category=${cat.id}`}
-                  className="glass-card rounded-2xl p-5 text-center block hover:border-brand-500/50 transition-all group hover:shadow-xl"
+                  className="glass-card rounded-2xl p-4 text-center block hover:border-brand-500/50 transition-all group hover:shadow-xl h-full flex flex-col justify-between"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-100 to-indigo-100 dark:from-brand-950/80 dark:to-indigo-950/80 flex items-center justify-center mx-auto mb-3 text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform shadow-sm">
-                    <Package className="w-6 h-6" />
+                    <CategoryIcon icon={cat.icon} className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xs font-bold text-gray-900 dark:text-white leading-tight mb-1">
-                    {cat.name}
-                  </h3>
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                    {cat.count} Products
-                  </span>
+                  <div>
+                    <h3 className="text-xs font-bold text-gray-900 dark:text-white leading-tight mb-1">
+                      {cat.name}
+                    </h3>
+                    <span className="text-[11px] text-gray-500 dark:text-gray-400">
+                      {cat.count} Products
+                    </span>
+                  </div>
                 </Link>
               </motion.div>
             ))}

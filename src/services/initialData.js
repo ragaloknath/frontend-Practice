@@ -6,7 +6,8 @@ export const INITIAL_CATEGORIES = [
   { id: 'fashion', name: 'Apparel & Textiles', icon: 'Shirt', count: 64, description: 'Bulk Cotton T-shirts, Hoodies, Activewear & Fabrics' },
   { id: 'home', name: 'Home & Kitchen Appliances', icon: 'Home', count: 29, description: 'Blenders, Air Fryers, Cookware & Household Goods' },
   { id: 'beauty', name: 'Personal Care & Beauty', icon: 'Sparkles', count: 41, description: 'Skincare Sets, Haircare Products & Cosmetic Wholesale' },
-  { id: 'industrial', name: 'Packaging & Hardware', icon: 'Package', count: 53, description: 'Eco Boxes, Thermal Paper, Tools & Safety Gear' }
+  { id: 'industrial', name: 'Packaging & Hardware', icon: 'Package', count: 53, description: 'Eco Boxes, Thermal Paper, Tools & Safety Gear' },
+  { id: 'groceries', name: 'Vegetables & Groceries', icon: 'Carrot', count: 20, description: 'Fresh Farm Produce, Organic Vegetables, Rice, Spices & Bulk Oils' }
 ];
 
 export const INITIAL_SUPPLIERS = [
@@ -77,6 +78,23 @@ export const INITIAL_SUPPLIERS = [
     contactEmail: 'supply@luminliving.de',
     phone: '+49 69 9876543',
     address: 'Mainzer Landstraße 180, Frankfurt, Germany'
+  },
+  {
+    id: 'sup_greenharvest',
+    name: 'GreenHarvest Organic Farms & Agro',
+    logo: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=150&auto=format&fit=crop&q=80',
+    verified: true,
+    rating: 4.92,
+    reviewsCount: 184,
+    location: 'California, USA / Salinas Valley',
+    established: 2012,
+    responseRate: '99.4%',
+    avgDelivery: '1-2 Days Cold Express',
+    description: 'Direct farm producer and wholesale exporter of certified organic fresh vegetables, farm-fresh produce, bulk grains, and cooking oils.',
+    categories: ['groceries'],
+    contactEmail: 'b2b-sales@greenharvestorganic.com',
+    phone: '+1 (800) 555-8833',
+    address: '450 Agro Valley Rd, Salinas, CA'
   }
 ];
 
@@ -1002,6 +1020,586 @@ export const INITIAL_PRODUCTS = [
       { minQty: 50, maxQty: 199, price: 849 },
       { minQty: 200, maxQty: 999, price: 769 },
       { minQty: 1000, maxQty: 5000, price: 699 }
+    ]
+  },
+  {
+    id: 'prod_g1',
+    name: 'Farm-Fresh Organic Red & Yellow Bell Peppers (10kg Crate)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=600&auto=format&fit=crop&q=80',
+    description: 'Grade-A pesticide-free organic bell peppers harvested fresh daily. Temperature-controlled shipping crates ideal for supermarkets, hotels, and bulk retailers.',
+    retailPrice: 48.00,
+    bulkPrice: 24.50,
+    moq: 10,
+    unit: 'crates',
+    rating: 4.9,
+    reviewsCount: 64,
+    inStock: true,
+    stockQuantity: 4500,
+    featured: true,
+    specifications: {
+      'Grade': 'Export Grade A Premium',
+      'Storage Temp': '7°C - 10°C Cold Chain',
+      'Shelf Life': '14 Days Post Delivery',
+      'Packaging': 'Vented Eco Crates (10kg net weight)'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 28.50 },
+      { minQty: 50, maxQty: 199, price: 26.00 },
+      { minQty: 200, maxQty: 2000, price: 24.50 }
+    ]
+  },
+  {
+    id: 'prod_g2',
+    name: 'Wholesale Red Onions & Premium Garlic Mesh Sack (25kg Pack)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=600&auto=format&fit=crop&q=80',
+    description: 'Farm-cured long shelf life red onions paired with premium whole white garlic bulbs. Triple-graded for size uniformity and high culinary standard.',
+    retailPrice: 38.00,
+    bulkPrice: 18.90,
+    moq: 15,
+    unit: 'bags',
+    rating: 4.85,
+    reviewsCount: 52,
+    inStock: true,
+    stockQuantity: 12000,
+    featured: true,
+    specifications: {
+      'Origin': 'Salinas Valley Farm Direct',
+      'Moisture Content': '< 12% Standard',
+      'Bag Net Weight': '25 kg (55 lbs)',
+      'Shelf Life': '60 Days in ventilated storage'
+    },
+    tierPrices: [
+      { minQty: 15, maxQty: 49, price: 22.00 },
+      { minQty: 50, maxQty: 199, price: 20.00 },
+      { minQty: 200, maxQty: 5000, price: 18.90 }
+    ]
+  },
+  {
+    id: 'prod_g3',
+    name: 'Hydroponic Organic Baby Spinach & Salad Greens (5kg Cold Box)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=600&auto=format&fit=crop&q=80',
+    description: 'Triple-washed hydroponic baby spinach and romaine lettuce delivered in refrigerated insulated boxes with ice gel packs. Zero soil residue, 100% organic.',
+    retailPrice: 28.00,
+    bulkPrice: 14.50,
+    moq: 20,
+    unit: 'boxes',
+    rating: 4.95,
+    reviewsCount: 38,
+    inStock: true,
+    stockQuantity: 3200,
+    featured: true,
+    specifications: {
+      'Cultivation': 'Advanced Closed-Loop Hydroponics',
+      'Washing': 'Triple Ozone Purified Water Wash',
+      'Net Weight': '5 kg Box (Insulated Gel Pack)',
+      'Certification': 'USDA Organic & Global GAP'
+    },
+    tierPrices: [
+      { minQty: 20, maxQty: 49, price: 17.00 },
+      { minQty: 50, maxQty: 99, price: 15.50 },
+      { minQty: 100, maxQty: 1000, price: 14.50 }
+    ]
+  },
+  {
+    id: 'prod_g4',
+    name: 'Farm Direct Vine Tomatoes & Potatoes Crate (50kg Combo)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600&auto=format&fit=crop&q=80',
+    description: 'Fresh farm vine-ripened red tomatoes paired with washed Russet potatoes. Essential staple combo for commercial kitchens, mess halls, and caterers.',
+    retailPrice: 65.00,
+    bulkPrice: 32.00,
+    moq: 10,
+    unit: 'crates',
+    rating: 4.88,
+    reviewsCount: 47,
+    inStock: true,
+    stockQuantity: 6500,
+    featured: true,
+    specifications: {
+      'Combo Ratio': '25kg Tomatoes + 25kg Potatoes',
+      'Quality Grade': 'A Premium Commercial',
+      'Packaging': 'Heavy Duty Stackable Plastic Crates',
+      'Dispatch': 'Same Day Harvest Dispatch'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 29, price: 37.00 },
+      { minQty: 30, maxQty: 99, price: 34.00 },
+      { minQty: 100, maxQty: 2000, price: 32.00 }
+    ]
+  },
+  {
+    id: 'prod_g5',
+    name: 'Royal Extra Long Aged Basmati Rice Sack (50kg Bulk Bag)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&auto=format&fit=crop&q=80',
+    description: '100% Pure Aged 1121 Extra Long Grain Basmati Rice. Fluffy, non-sticky texture with rich authentic aroma for catering and grocery retail.',
+    retailPrice: 85.00,
+    bulkPrice: 45.00,
+    moq: 5,
+    unit: 'bags',
+    rating: 4.98,
+    reviewsCount: 92,
+    inStock: true,
+    stockQuantity: 15000,
+    featured: true,
+    specifications: {
+      'Grain Length': '8.35 mm Pre-cooked',
+      'Aging': '2 Years Natural Warehouse Aged',
+      'Admixture': '< 1%',
+      'Bag Type': 'Food Grade Jute Sack (50kg)'
+    },
+    tierPrices: [
+      { minQty: 5, maxQty: 19, price: 52.00 },
+      { minQty: 20, maxQty: 99, price: 48.00 },
+      { minQty: 100, maxQty: 5000, price: 45.00 }
+    ]
+  },
+  {
+    id: 'prod_g6',
+    name: 'Cold-Pressed Pure Sunflower & Mustard Oil (20L Canister)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&auto=format&fit=crop&q=80',
+    description: '100% natural expeller-pressed edible oil with zero chemical solvents. High smoke point ideal for commercial cooking, frying, and food manufacturing.',
+    retailPrice: 72.00,
+    bulkPrice: 38.50,
+    moq: 5,
+    unit: 'canisters',
+    rating: 4.9,
+    reviewsCount: 41,
+    inStock: true,
+    stockQuantity: 8000,
+    featured: true,
+    specifications: {
+      'Extraction Method': 'Traditional Wooden Cold Press (Ghani)',
+      'Free Fatty Acid': '< 0.5%',
+      'Container': 'BPA-Free Food Grade HD-PE Canister (20 Liters)',
+      'Shelf Life': '12 Months'
+    },
+    tierPrices: [
+      { minQty: 5, maxQty: 19, price: 44.00 },
+      { minQty: 20, maxQty: 49, price: 41.00 },
+      { minQty: 50, maxQty: 1000, price: 38.50 }
+    ]
+  },
+  {
+    id: 'prod_g7',
+    name: 'Fresh Farm Broccoli & Cauliflower Florets (10kg Insulated Box)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?w=600&auto=format&fit=crop&q=80',
+    description: 'Crisp green broccoli heads and snow-white cauliflower florets. Packed in temperature-monitored crates to preserve nutrients.',
+    retailPrice: 42.00,
+    bulkPrice: 22.00,
+    moq: 10,
+    unit: 'boxes',
+    rating: 4.87,
+    reviewsCount: 33,
+    inStock: true,
+    stockQuantity: 5200,
+    featured: false,
+    specifications: {
+      'Grade': 'A Grade Export Standard',
+      'Ratio': '5kg Broccoli + 5kg Cauliflower',
+      'Packaging': 'Chilled Insulated Box with Ice Gel',
+      'Shelf Life': '10 Days Cold Chain'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 25.50 },
+      { minQty: 50, maxQty: 199, price: 23.50 },
+      { minQty: 200, maxQty: 1000, price: 22.00 }
+    ]
+  },
+  {
+    id: 'prod_g8',
+    name: 'Organic Farm Carrots & Beetroot Combo Crate (20kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1447175008436-08417189295a?w=600&auto=format&fit=crop&q=80',
+    description: 'Farm-fresh sweet crunchy orange carrots and deep red beetroots. Ideal for juicing bars, salad counters, and supermarkets.',
+    retailPrice: 36.00,
+    bulkPrice: 19.50,
+    moq: 15,
+    unit: 'crates',
+    rating: 4.91,
+    reviewsCount: 29,
+    inStock: true,
+    stockQuantity: 7400,
+    featured: false,
+    specifications: {
+      'Origin': 'Salinas Organic Growers',
+      'Washing': 'Pre-washed Root Vegetables',
+      'Net Weight': '20 kg (44 lbs)',
+      'Shelf Life': '30 Days Refrigerated'
+    },
+    tierPrices: [
+      { minQty: 15, maxQty: 49, price: 22.50 },
+      { minQty: 50, maxQty: 199, price: 20.50 },
+      { minQty: 200, maxQty: 1000, price: 19.50 }
+    ]
+  },
+  {
+    id: 'prod_g9',
+    name: 'Crisp Green Cucumbers & Zucchini Wholesale Box (15kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1604977042946-1eecc30f269e?w=600&auto=format&fit=crop&q=80',
+    description: 'Greenhouse grown seedless cucumbers and dark green zucchini. Firm, hydrating, and uniform size for gourmet food service.',
+    retailPrice: 32.00,
+    bulkPrice: 16.80,
+    moq: 12,
+    unit: 'boxes',
+    rating: 4.82,
+    reviewsCount: 24,
+    inStock: true,
+    stockQuantity: 4100,
+    featured: false,
+    specifications: {
+      'Type': 'English Seedless & Green Zucchini',
+      'Weight': '15 kg per corrugated box',
+      'Storage': '8°C - 12°C',
+      'Pesticide Standard': '100% Residue Free'
+    },
+    tierPrices: [
+      { minQty: 12, maxQty: 49, price: 19.50 },
+      { minQty: 50, maxQty: 199, price: 17.80 },
+      { minQty: 200, maxQty: 1000, price: 16.80 }
+    ]
+  },
+  {
+    id: 'prod_g10',
+    name: 'Fresh Green Peas & French Beans Mesh Crate (10kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=600&auto=format&fit=crop&q=80',
+    description: 'Hand-picked tender green peas in pod paired with crisp snap french beans. Farm fresh quality packed in breathable mesh crates.',
+    retailPrice: 40.00,
+    bulkPrice: 21.00,
+    moq: 10,
+    unit: 'crates',
+    rating: 4.89,
+    reviewsCount: 31,
+    inStock: true,
+    stockQuantity: 3900,
+    featured: false,
+    specifications: {
+      'Ratio': '5kg Peas + 5kg French Beans',
+      'Freshness': 'Picked 24h prior to shipping',
+      'Packaging': 'Ventilated Food Plastic Crates',
+      'Shelf Life': '12 Days in Cold Storage'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 24.00 },
+      { minQty: 50, maxQty: 199, price: 22.50 },
+      { minQty: 200, maxQty: 1000, price: 21.00 }
+    ]
+  },
+  {
+    id: 'prod_g11',
+    name: 'Fresh Sweet Corn Cobs & Baby Corn Wholesale Bundle (50 Pcs)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=600&auto=format&fit=crop&q=80',
+    description: 'Golden juicy sweet corn ears in husk alongside tender baby corn. High sugar content and natural sweetness.',
+    retailPrice: 30.00,
+    bulkPrice: 15.50,
+    moq: 15,
+    unit: 'bundles',
+    rating: 4.84,
+    reviewsCount: 22,
+    inStock: true,
+    stockQuantity: 6200,
+    featured: false,
+    specifications: {
+      'Variety': 'Golden Super Sweet & Tender Baby Corn',
+      'Count': '35 Sweet Corn + 15 Baby Corn Packs',
+      'Husk': 'Intact natural protective husk',
+      'Grade': 'Choice Commercial Grade'
+    },
+    tierPrices: [
+      { minQty: 15, maxQty: 49, price: 18.00 },
+      { minQty: 50, maxQty: 199, price: 16.50 },
+      { minQty: 200, maxQty: 1000, price: 15.50 }
+    ]
+  },
+  {
+    id: 'prod_g12',
+    name: 'Organic Avocados & Hass Avocado Commercial Box (10kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600&auto=format&fit=crop&q=80',
+    description: 'Creamy Hass avocados harvested at optimal oil maturity. Ideal for restaurants, guacamole makers, and health stores.',
+    retailPrice: 70.00,
+    bulkPrice: 36.00,
+    moq: 8,
+    unit: 'boxes',
+    rating: 4.96,
+    reviewsCount: 58,
+    inStock: true,
+    stockQuantity: 2800,
+    featured: true,
+    specifications: {
+      'Variety': '100% Hass Avocado Organic',
+      'Size': '48s / 60s Count per 10kg Box',
+      'Ripeness': 'Stage 2 Hard-Green (Ready for transport)',
+      'Origin': 'California Farm Direct'
+    },
+    tierPrices: [
+      { minQty: 8, maxQty: 29, price: 41.00 },
+      { minQty: 30, maxQty: 99, price: 38.00 },
+      { minQty: 100, maxQty: 1000, price: 36.00 }
+    ]
+  },
+  {
+    id: 'prod_g13',
+    name: 'Fresh Red & Green Chili Peppers Bulk Bag (5kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600&auto=format&fit=crop&q=80',
+    description: 'Spicy fresh red hot chili peppers and vibrant green Thai chilies. High capsaicin level, pungent flavor for hot sauce and cooking.',
+    retailPrice: 24.00,
+    bulkPrice: 12.80,
+    moq: 20,
+    unit: 'bags',
+    rating: 4.88,
+    reviewsCount: 19,
+    inStock: true,
+    stockQuantity: 5000,
+    featured: false,
+    specifications: {
+      'Scoville Heat': '30,000 - 50,000 SHU',
+      'Weight': '5 kg Net Bag',
+      'Color': '50% Red / 50% Green Split',
+      'Shelf Life': '20 Days'
+    },
+    tierPrices: [
+      { minQty: 20, maxQty: 49, price: 15.00 },
+      { minQty: 50, maxQty: 199, price: 13.80 },
+      { minQty: 200, maxQty: 1000, price: 12.80 }
+    ]
+  },
+  {
+    id: 'prod_g14',
+    name: 'Fresh Farm Ginger & Turmeric Root Mesh Bag (10kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&auto=format&fit=crop&q=80',
+    description: 'Plump washed ginger rhizomes and high-curcumin raw orange turmeric root. Powerful natural aromatic roots for wholesale.',
+    retailPrice: 52.00,
+    bulkPrice: 28.00,
+    moq: 10,
+    unit: 'bags',
+    rating: 4.93,
+    reviewsCount: 44,
+    inStock: true,
+    stockQuantity: 4300,
+    featured: false,
+    specifications: {
+      'Curcumin Content': '> 5.2% in Turmeric',
+      'Ginger Rhizome Size': '150g+ per piece',
+      'Net Weight': '10 kg (5kg Ginger + 5kg Turmeric)',
+      'Drying': 'Soil Free Cured Roots'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 32.00 },
+      { minQty: 50, maxQty: 199, price: 29.50 },
+      { minQty: 200, maxQty: 1000, price: 28.00 }
+    ]
+  },
+  {
+    id: 'prod_g15',
+    name: 'Organic Whole Wheat Flour (Atta) Sack (50kg Bag)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&auto=format&fit=crop&q=80',
+    description: 'Stone-ground 100% whole wheat chakki atta. High dietary fiber content, perfect for bakeries, flatbreads, and retail grocery packaging.',
+    retailPrice: 55.00,
+    bulkPrice: 29.00,
+    moq: 5,
+    unit: 'bags',
+    rating: 4.91,
+    reviewsCount: 67,
+    inStock: true,
+    stockQuantity: 18000,
+    featured: false,
+    specifications: {
+      'Grinding': 'Traditional Chakki Stone Milled',
+      'Ash Content': '< 1.5%',
+      'Gluten Strength': '30% Min Index',
+      'Packaging': 'Heavy Duty 50kg Moisture Proof Sack'
+    },
+    tierPrices: [
+      { minQty: 5, maxQty: 19, price: 34.00 },
+      { minQty: 20, maxQty: 99, price: 31.00 },
+      { minQty: 100, maxQty: 5000, price: 29.00 }
+    ]
+  },
+  {
+    id: 'prod_g16',
+    name: 'Premium Yellow Toor Dal & Chana Lentils Sack (25kg Bag)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1515543904379-3d757afe72e3?w=600&auto=format&fit=crop&q=80',
+    description: 'Unpolished protein-rich yellow split pigeon peas (Toor Dal) and chickpeas. Cleaned, sorted with optical laser machinery.',
+    retailPrice: 62.00,
+    bulkPrice: 34.00,
+    moq: 10,
+    unit: 'bags',
+    rating: 4.89,
+    reviewsCount: 36,
+    inStock: true,
+    stockQuantity: 11000,
+    featured: false,
+    specifications: {
+      'Purity': '99.9% Optical Sorted',
+      'Moisture': '< 10%',
+      'Weight': '25 kg Sack',
+      'Polish': '100% Unpolished Natural'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 39.00 },
+      { minQty: 50, maxQty: 199, price: 36.00 },
+      { minQty: 200, maxQty: 5000, price: 34.00 }
+    ]
+  },
+  {
+    id: 'prod_g17',
+    name: 'Pure Organic Raw Honey & Wildflower Nectar (10kg Bucket)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=600&auto=format&fit=crop&q=80',
+    description: 'Unheated unfiltered pure wildflower raw honey direct from apiaries. Rich golden texture with natural pollen and enzymes.',
+    retailPrice: 120.00,
+    bulkPrice: 65.00,
+    moq: 4,
+    unit: 'buckets',
+    rating: 4.97,
+    reviewsCount: 81,
+    inStock: true,
+    stockQuantity: 2100,
+    featured: true,
+    specifications: {
+      'Purity': '100% Pure Raw Wildflower Honey',
+      'HMF Level': '< 15 mg/kg',
+      'Diastase Activity': '> 10 DN',
+      'Container': 'Food Grade 10kg Sealed Pail'
+    },
+    tierPrices: [
+      { minQty: 4, maxQty: 19, price: 75.00 },
+      { minQty: 20, maxQty: 49, price: 69.00 },
+      { minQty: 50, maxQty: 500, price: 65.00 }
+    ]
+  },
+  {
+    id: 'prod_g18',
+    name: 'Whole Black Pepper & Spices Export Crate (5kg Box)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&auto=format&fit=crop&q=80',
+    description: 'Sun-dried high-piping Malabar black peppercorns, whole green cardamom pods, and cinnamon bark spice box.',
+    retailPrice: 90.00,
+    bulkPrice: 48.00,
+    moq: 5,
+    unit: 'boxes',
+    rating: 4.94,
+    reviewsCount: 39,
+    inStock: true,
+    stockQuantity: 3400,
+    featured: false,
+    specifications: {
+      'Contents': '3kg Black Pepper + 1kg Cardamom + 1kg Cinnamon',
+      'Piperine Content': '> 5.5% in Black Pepper',
+      'Packaging': 'Vacuum Sealed Aluminum Foil Bags in 5kg Box',
+      'Origin': 'Kerala Spice Estate Direct'
+    },
+    tierPrices: [
+      { minQty: 5, maxQty: 19, price: 55.00 },
+      { minQty: 20, maxQty: 49, price: 51.00 },
+      { minQty: 50, maxQty: 500, price: 48.00 }
+    ]
+  },
+  {
+    id: 'prod_g19',
+    name: 'Fresh Lemons & Citrus Farm Crate (20kg)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1534531141161-e41d133a897d?w=600&auto=format&fit=crop&q=80',
+    description: 'Juicy bright yellow Eureka lemons and fresh limes. High juice yield, thin skin, packed in ventilated crates for beverage and kitchen use.',
+    retailPrice: 34.00,
+    bulkPrice: 18.00,
+    moq: 10,
+    unit: 'crates',
+    rating: 4.86,
+    reviewsCount: 27,
+    inStock: true,
+    stockQuantity: 6700,
+    featured: false,
+    specifications: {
+      'Juice Content': '> 42% by weight',
+      'Size': '115s / 140s Count per 20kg Crate',
+      'Storage': '10°C Cold Chain',
+      'Shelf Life': '25 Days'
+    },
+    tierPrices: [
+      { minQty: 10, maxQty: 49, price: 21.00 },
+      { minQty: 50, maxQty: 199, price: 19.50 },
+      { minQty: 200, maxQty: 1000, price: 18.00 }
+    ]
+  },
+  {
+    id: 'prod_g20',
+    name: 'Extra Virgin Cold-Pressed Olive Oil Commercial Drum (25L)',
+    category: 'groceries',
+    supplierId: 'sup_greenharvest',
+    supplierName: 'GreenHarvest Organic Farms & Agro',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&auto=format&fit=crop&q=80',
+    description: 'First cold-pressed Mediterranean extra virgin olive oil with low acidity (<0.3%). Exceptional aroma for fine dining restaurants and bottling.',
+    retailPrice: 160.00,
+    bulkPrice: 85.00,
+    moq: 2,
+    unit: 'drums',
+    rating: 4.99,
+    reviewsCount: 73,
+    inStock: true,
+    stockQuantity: 1500,
+    featured: true,
+    specifications: {
+      'Acidity': '< 0.3% Free Fatty Acids',
+      'Extraction': 'Single Estate First Cold Extraction (<27°C)',
+      'Container': 'Stainless Steel / Food Grade 25L Drum',
+      'Certification': 'IOC Certified Extra Virgin'
+    },
+    tierPrices: [
+      { minQty: 2, maxQty: 9, price: 98.00 },
+      { minQty: 10, maxQty: 29, price: 90.00 },
+      { minQty: 30, maxQty: 200, price: 85.00 }
     ]
   }
 ];

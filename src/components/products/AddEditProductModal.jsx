@@ -170,7 +170,7 @@ export const AddEditProductModal = ({ isOpen, onClose, initialData = null }) => 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                  Estimated Retail Price ($) *
+                  Estimated Retail Price (₹) *
                 </label>
                 <input
                   type="number"
@@ -179,14 +179,14 @@ export const AddEditProductModal = ({ isOpen, onClose, initialData = null }) => 
                   required
                   value={formData.retailPrice}
                   onChange={handleChange}
-                  placeholder="99.99"
+                  placeholder="999.00"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 text-xs text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                  Factory Bulk Price ($) *
+                  Factory Bulk Price (₹) *
                 </label>
                 <input
                   type="number"

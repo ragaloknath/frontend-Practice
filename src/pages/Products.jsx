@@ -21,7 +21,7 @@ export default function Products() {
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || 'all');
   const [supplier, setSupplier] = useState('all');
-  const [maxPrice, setMaxPrice] = useState(300);
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [maxMoq, setMaxMoq] = useState(1000);
   const [sortBy, setSortBy] = useState('featured');
   const [page, setPage] = useState(1);
@@ -84,7 +84,7 @@ export default function Products() {
 
   const handleReset = () => {
     setSearch(''); setCategory('all'); setSupplier('all');
-    setMaxPrice(300); setMaxMoq(1000); setSortBy('featured'); setPage(1);
+    setMaxPrice(10000); setMaxMoq(1000); setSortBy('featured'); setPage(1);
   };
 
   const handleDelete = (id) => setDeleteId(id);

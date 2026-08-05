@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useProducts } from '../../context/ProductContext';
 import { useCompare } from '../../context/CompareContext';
 import { ThemeToggle } from './ThemeToggle';
+import { AuthModal } from '../common/AuthModal';
 import {
   PackageSearch,
   Heart,
@@ -37,6 +38,8 @@ export const Navbar = ({ onOpenAddModal }) => {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMessage, setAuthMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -567,18 +570,24 @@ export const Navbar = ({ onOpenAddModal }) => {
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <Link
-                    to="/login"
+                  <button
+                    onClick={() => {
+                      setAuthMessage('Sign in with your email address to access your wholesale buyer or seller account.');
+                      setIsAuthModalOpen(true);
+                    }}
                     className="px-3.5 py-2 text-xs font-semibold rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
                     Log In
-                  </Link>
-                  <Link
-                    to="/register"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setAuthMessage('Create your account with your email to start bulk ordering and publishing listings.');
+                      setIsAuthModalOpen(true);
+                    }}
                     className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-500/20 transition-all hover:scale-105"
                   >
                     Register
-                  </Link>
+                  </button>
                 </div>
               )}
 
@@ -617,7 +626,14 @@ export const Navbar = ({ onOpenAddModal }) => {
             {/* Add Product CTA */}
             {onOpenAddModal && (
               <button
-                onClick={onOpenAddModal}
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    setAuthMessage('Please sign in or create an account with your email to publish product listings.');
+                    setIsAuthModalOpen(true);
+                    return;
+                  }
+                  onOpenAddModal();
+                }}
                 className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow transition-all hover:scale-105"
               >
                 <PlusCircle className="w-4 h-4" />
@@ -626,6 +642,18 @@ export const Navbar = ({ onOpenAddModal }) => {
             )}
           </div>
         </div>
+
+        {/* Auth Modal for Navbar */}
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          message={authMessage}
+          onSuccess={() => {
+            if (onOpenAddModal && authMessage.includes('publish')) {
+              onOpenAddModal();
+            }
+          }}
+        />
 
         {/* ─── MOBILE SEARCH MODAL OVERLAY ─── */}
         {isMobileSearchOpen && (
@@ -687,7 +715,7 @@ export const Navbar = ({ onOpenAddModal }) => {
         {/* ─── MOBILE DRAWER MENU ─── */}
         {isMobileMenuOpen && (
           <div className="lg:hidden py-4 px-4 bg-white dark:bg-[#0B0F17] border-t border-gray-200 dark:border-gray-800 space-y-4 animate-in fade-in slide-in-from-top-3">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {navLinks.map(({ name, path, icon: Icon }) => (
                 <Link
                   key={name}
@@ -699,11 +727,24 @@ export const Navbar = ({ onOpenAddModal }) => {
                       : 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/40'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5 text-brand-500" />
+                  <Icon className="w-4 h-4 text-brand-500 flex-shrink-0" />
                   <span>{name}</span>
                 </Link>
               ))}
             </div>
+
+            {onOpenAddModal && (
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenAddModal();
+                }}
+                className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Publish Wholesale Listing</span>
+              </button>
+            )}
           </div>
         )}
 
