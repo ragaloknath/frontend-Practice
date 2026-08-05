@@ -90,20 +90,20 @@ export const ProductFilter = ({
       <div>
         <div className="flex justify-between items-center text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
           <span>Max Wholesale Price</span>
-          <span className="text-brand-600 dark:text-brand-400">${maxPrice}</span>
+          <span className="text-brand-600 dark:text-brand-400">₹{maxPrice >= 10000 ? '10,000+' : maxPrice.toLocaleString('en-IN')}</span>
         </div>
         <input
           type="range"
           min="5"
-          max="300"
-          step="5"
+          max="10000"
+          step="50"
           value={maxPrice}
           onChange={(e) => setMaxPrice(Number(e.target.value))}
           className="w-full accent-brand-600"
         />
         <div className="flex justify-between text-[10px] text-gray-400 mt-1">
-          <span>$5</span>
-          <span>$300+</span>
+          <span>₹5</span>
+          <span>₹10,000+</span>
         </div>
       </div>
 

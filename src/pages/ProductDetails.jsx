@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft, Heart, Scale, Calculator, ShieldCheck, Package,
-  Star, Send, ChevronRight, CheckCircle, ExternalLink
+  Star, Send, ChevronRight, CheckCircle, ExternalLink, ShoppingCart, Zap
 } from 'lucide-react';
 import { useProducts } from '../context/ProductContext';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +12,7 @@ import { storageService } from '../services/storageService';
 import { RatingStars } from '../components/common/RatingStars';
 import { Badge } from '../components/common/Badge';
 import { ProductCard } from '../components/products/ProductCard';
+import { AuthModal } from '../components/common/AuthModal';
 import { useToast } from '../context/ToastContext';
 
 export default function ProductDetails() {
@@ -26,6 +27,8 @@ export default function ProductDetails() {
   const [reviews, setReviews] = useState([]);
   const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' });
   const [activeTab, setActiveTab] = useState('specs');
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMessage, setAuthMessage] = useState('');
 
   useEffect(() => {
     setReviews(storageService.getReviews(id));
@@ -50,10 +53,35 @@ export default function ProductDetails() {
   const isWishlisted = isInWishlist(product.id);
   const relatedProducts = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
 
+  const handleProtectedAction = (actionType = 'order') => {
+    if (!isAuthenticated) {
+      setAuthMessage(
+        actionType === 'cart'
+          ? 'Please sign in or create an account with your email to add this item to your cart.'
+          : actionType === 'wishlist'
+          ? 'Please sign in or create an account to save items to your wishlist.'
+          : 'Please sign in or create an account with your email to place bulk orders or contact suppliers.'
+      );
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    if (actionType === 'wishlist') {
+      toggleWishlist(product.id);
+    } else if (actionType === 'cart') {
+      toast.success(`"${product.name}" added to your wholesale cart!`);
+    } else if (actionType === 'contact') {
+      navigate(`/suppliers/${product.supplierId}`);
+    } else {
+      toast.success(`Bulk Order Request for "${product.name}" submitted! Invoice & supplier contract sent to ${currentUser.email}.`);
+    }
+  };
+
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     if (!isAuthenticated) {
-      toast.error('Please log in to leave a review.');
+      setAuthMessage('Please sign in or create an account with your email to leave a product review.');
+      setIsAuthModalOpen(true);
       return;
     }
     const newReview = addReview({
@@ -69,6 +97,15 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0B0F17]">
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        message={authMessage}
+        onSuccess={() => {
+          toast.success(`Welcome ${currentUser?.name || 'User'}! You can now proceed with your order.`);
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Breadcrumb */}
@@ -189,43 +226,54 @@ export default function ProductDetails() {
             )}
 
             {/* Action Buttons */}
-            <div className="flex items-center flex-wrap gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <button
-                onClick={() => toggleWishlist(product.id)}
-                className={`flex items-center space-x-2 px-5 py-3 rounded-2xl font-semibold text-sm transition-all border ${
+                onClick={() => handleProtectedAction('cart')}
+                className="flex-1 py-3 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span>Add to Cart</span>
+              </button>
+
+              <button
+                onClick={() => handleProtectedAction('order')}
+                className="flex-1 py-3 px-5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-xl shadow-brand-500/20 transition-all flex items-center justify-center space-x-2"
+              >
+                <Zap className="w-4 h-4" />
+                <span>Buy Now / Place Order</span>
+              </button>
+
+              <button
+                onClick={() => handleProtectedAction('wishlist')}
+                className={`p-3 rounded-2xl border transition-all flex items-center justify-center ${
                   isWishlisted
                     ? 'bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border-red-200 dark:border-red-800'
                     : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-600'
                 }`}
+                title="Wishlist"
               >
-                <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-current' : ''}`} />
-                <span>{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
+                <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 pt-1">
+              <button
+                onClick={() => addToCompare(product)}
+                className="flex-1 py-2.5 px-4 rounded-xl border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-brand-500 hover:text-brand-600 transition-all flex items-center justify-center space-x-1.5"
+              >
+                <Scale className="w-4 h-4" />
+                <span>Add to Compare</span>
               </button>
 
               <button
-                onClick={() => addToCompare(product)}
-                className="flex items-center space-x-2 px-5 py-3 rounded-2xl border border-gray-200 dark:border-gray-800 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:border-brand-500 hover:text-brand-600 transition-all"
-              >
-                <Scale className="w-4 h-4" />
-                <span>Compare</span>
-              </button>
-
-              <Link
-                to={`/calculator?retail=${product.retailPrice}&bulk=${product.bulkPrice}&moq=${product.moq}`}
-                className="flex items-center space-x-2 px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow transition-all"
-              >
-                <Calculator className="w-4 h-4" />
-                <span>Calculate ROI</span>
-              </Link>
-
-              <Link
-                to={`/suppliers/${product.supplierId}`}
-                className="flex items-center space-x-2 px-5 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-xl shadow-brand-500/20 transition-all"
+                onClick={() => handleProtectedAction('contact')}
+                className="flex-1 py-2.5 px-4 rounded-xl border border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all flex items-center justify-center space-x-1.5"
               >
                 <span>Contact Supplier</span>
                 <ChevronRight className="w-4 h-4" />
-              </Link>
+              </button>
             </div>
+
           </div>
         </div>
 
@@ -263,61 +311,54 @@ export default function ProductDetails() {
 
           {activeTab === 'reviews' && (
             <div className="space-y-6">
-              {reviews.length > 0 ? (
-                reviews.map(rev => (
-                  <div key={rev.id} className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/40">
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <span className="text-sm font-bold text-gray-900 dark:text-white">{rev.userName}</span>
-                        {rev.userRole && <span className="ml-2 text-xs text-gray-500">· {rev.userRole}</span>}
-                      </div>
-                      <span className="text-xs text-gray-400">{rev.date}</span>
-                    </div>
-                    <RatingStars rating={rev.rating} size="sm" showNumber={false} />
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">{rev.comment}</p>
+              {/* Add Review Form */}
+              <form onSubmit={handleReviewSubmit} className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/40 space-y-3">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+                  Write a Verified Review
+                </h4>
+                <div className="flex items-center space-x-3">
+                  <span className="text-xs text-gray-500">Rating:</span>
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewForm(prev => ({ ...prev, rating: star }))}
+                        className={`p-1 ${reviewForm.rating >= star ? 'text-amber-400' : 'text-gray-300'}`}
+                      >
+                        <Star className="w-4 h-4 fill-current" />
+                      </button>
+                    ))}
                   </div>
-                ))
-              ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
-                  No reviews yet. Be the first to review this product!
-                </p>
-              )}
+                </div>
+                <textarea
+                  rows="3"
+                  required
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm(prev => ({ ...prev, comment: e.target.value }))}
+                  placeholder="Share your experience regarding bulk quality, shipping speed, or supplier response..."
+                  className="w-full p-3 text-xs rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow"
+                >
+                  Submit Review
+                </button>
+              </form>
 
-              {/* Review Form */}
-              <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
-                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4">Leave a Review</h4>
-                <form onSubmit={handleReviewSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Rating</label>
-                    <div className="flex space-x-2">
-                      {[1,2,3,4,5].map(n => (
-                        <button
-                          key={n}
-                          type="button"
-                          onClick={() => setReviewForm(prev => ({ ...prev, rating: n }))}
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${reviewForm.rating >= n ? 'bg-amber-400 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400'}`}
-                        >
-                          <Star className="w-4 h-4" />
-                        </button>
-                      ))}
+              {/* Reviews List */}
+              <div className="space-y-4">
+                {reviews.map(rev => (
+                  <div key={rev.id} className="p-4 rounded-xl border border-gray-100 dark:border-gray-800 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-gray-900 dark:text-white">{rev.userName}</span>
+                      <span className="text-[11px] text-gray-400">{rev.date}</span>
                     </div>
+                    <RatingStars rating={rev.rating} size="xs" />
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{rev.comment}</p>
                   </div>
-                  <textarea
-                    value={reviewForm.comment}
-                    onChange={e => setReviewForm(prev => ({ ...prev, comment: e.target.value }))}
-                    placeholder="Share your experience sourcing or selling this bulk product..."
-                    rows="3"
-                    required
-                    className="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 text-xs focus:ring-2 focus:ring-brand-500 dark:text-white"
-                  />
-                  <button
-                    type="submit"
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow transition-all"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{isAuthenticated ? 'Submit Review' : 'Log in to Review'}</span>
-                  </button>
-                </form>
+                ))}
               </div>
             </div>
           )}
@@ -326,12 +367,12 @@ export default function ProductDetails() {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div>
-            <h2 className="text-xl font-black text-gray-900 dark:text-white mb-6">
-              Related Bulk Products in {product.category}
-            </h2>
+            <h3 className="text-xl font-black text-gray-900 dark:text-white mb-6">
+              More Products in {product.category}
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {relatedProducts.map(p => (
-                <ProductCard key={p.id} product={p} layout="grid" />
+              {relatedProducts.map(rel => (
+                <ProductCard key={rel.id} product={rel} layout="grid" />
               ))}
             </div>
           </div>

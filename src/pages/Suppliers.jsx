@@ -25,7 +25,7 @@ export default function Suppliers() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {suppliers.map((supplier, i) => {
             const productCount = getSupplierProductCount(supplier.id);
             return (
@@ -36,22 +36,22 @@ export default function Suppliers() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <div className="glass-card rounded-3xl p-7 group hover:border-brand-500/40 hover:shadow-xl transition-all">
+                <div className="glass-card rounded-3xl p-7 group hover:border-brand-500/40 hover:shadow-xl transition-all flex flex-col justify-between h-full">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-5">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <img
                         src={supplier.logo}
                         alt={supplier.name}
-                        className="w-20 h-20 rounded-2xl object-cover bg-gray-100 dark:bg-gray-800 shadow-md"
+                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover bg-gray-100 dark:bg-gray-800 shadow-md flex-shrink-0"
                       />
                       <div>
                         <h3 className="font-extrabold text-lg text-gray-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                           {supplier.name}
                         </h3>
                         {supplier.verified && (
-                          <span className="inline-flex items-center space-x-1 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full mt-1 border border-emerald-200 dark:border-emerald-800/60">
-                            <ShieldCheck className="w-3.5 h-3.5" />
+                          <span className="inline-flex items-center space-x-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full mt-1 border border-emerald-200 dark:border-emerald-800/60">
+                            <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>Diamond Verified Wholesaler</span>
                           </span>
                         )}
