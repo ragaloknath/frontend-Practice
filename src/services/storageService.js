@@ -73,7 +73,7 @@ export const initStorage = () => {
       }
     ]);
   }
-  // Initialize default demo user if none exists
+  // Initialize default users array if none exists (do NOT set CURRENT_USER automatically)
   if (!localStorage.getItem(KEYS.USERS)) {
     const defaultUser = {
       uid: 'user_demo_101',
@@ -85,24 +85,56 @@ export const initStorage = () => {
       joinedDate: '2026-01-15'
     };
     setItem(KEYS.USERS, [defaultUser]);
-    if (!localStorage.getItem(KEYS.CURRENT_USER)) {
-      setItem(KEYS.CURRENT_USER, defaultUser);
-    }
+  }
+
+  // If stored current user is the demo user, remove it so visitor starts as Guest
+  const storedUser = getItem(KEYS.CURRENT_USER, null);
+  if (storedUser && storedUser.email === 'alex.demo@bulksaveshub.com') {
+    localStorage.removeItem(KEYS.CURRENT_USER);
   }
 };
 
 // Storage Service API methods
 export const storageService = {
   // PRODUCTS CRUD
-  getProducts: () => getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS),
-  
+  getProducts: () => {
+    let products = getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    const groceryProds = INITIAL_PRODUCTS.filter(p => p.category === 'groceries');
+    let hasChanges = false;
+
+    // Replace existing grocery products with updated INITIAL_PRODUCTS data
+    products = products.map(p => {
+      if (p.category === 'groceries') {
+        const fresh = groceryProds.find(gp => gp.id === p.id);
+        if (fresh) {
+          hasChanges = true;
+          return fresh;
+        }
+      }
+      return p;
+    });
+
+    // Append any missing grocery items
+    groceryProds.forEach(gp => {
+      if (!products.some(p => p.id === gp.id)) {
+        products.push(gp);
+        hasChanges = true;
+      }
+    });
+
+    if (hasChanges) {
+      setItem(KEYS.PRODUCTS, products);
+    }
+    return products;
+  },
+
   getProductById: (id) => {
-    const products = getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    const products = storageService.getProducts();
     return products.find(p => p.id === id) || null;
   },
 
   addProduct: (productData) => {
-    const products = getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    const products = storageService.getProducts();
     const newProduct = {
       ...productData,
       id: `prod_${Date.now()}`,
@@ -121,14 +153,14 @@ export const storageService = {
   },
 
   updateProduct: (id, updatedFields) => {
-    const products = getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    const products = storageService.getProducts();
     const updated = products.map(p => p.id === id ? { ...p, ...updatedFields } : p);
     setItem(KEYS.PRODUCTS, updated);
     return updated.find(p => p.id === id);
   },
 
   deleteProduct: (id) => {
-    const products = getItem(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    const products = storageService.getProducts();
     const updated = products.filter(p => p.id !== id);
     setItem(KEYS.PRODUCTS, updated);
     
@@ -139,10 +171,39 @@ export const storageService = {
   },
 
   // CATEGORIES & SUPPLIERS
-  getCategories: () => getItem(KEYS.CATEGORIES, INITIAL_CATEGORIES),
-  getSuppliers: () => getItem(KEYS.SUPPLIERS, INITIAL_SUPPLIERS),
+  getCategories: () => {
+    let categories = getItem(KEYS.CATEGORIES, INITIAL_CATEGORIES);
+    let updated = false;
+    categories = categories.map(c => {
+      if (c.id === 'groceries') {
+        updated = true;
+        return { ...c, count: 20 };
+      }
+      return c;
+    });
+    const missing = INITIAL_CATEGORIES.filter(ic => !categories.some(c => c.id === ic.id));
+    if (missing.length > 0) {
+      categories = [...categories, ...missing];
+      updated = true;
+    }
+    if (updated) {
+      setItem(KEYS.CATEGORIES, categories);
+    }
+    return categories;
+  },
+
+  getSuppliers: () => {
+    let suppliers = getItem(KEYS.SUPPLIERS, INITIAL_SUPPLIERS);
+    const missing = INITIAL_SUPPLIERS.filter(is => !suppliers.some(s => s.id === is.id));
+    if (missing.length > 0) {
+      suppliers = [...suppliers, ...missing];
+      setItem(KEYS.SUPPLIERS, suppliers);
+    }
+    return suppliers;
+  },
+
   getSupplierById: (id) => {
-    const suppliers = getItem(KEYS.SUPPLIERS, INITIAL_SUPPLIERS);
+    const suppliers = storageService.getSuppliers();
     return suppliers.find(s => s.id === id) || null;
   },
 

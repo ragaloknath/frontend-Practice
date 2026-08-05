@@ -80,7 +80,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: 'Wishlist Items', value: wishlist.length, icon: Heart, color: 'text-red-500' },
-            { label: 'Total Savings Value', value: `$${totalSaved.toFixed(0)}`, icon: TrendingDown, color: 'text-emerald-500' },
+            { label: 'Total Savings Value', value: `₹${totalSaved.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`, icon: TrendingDown, color: 'text-emerald-500' },
             { label: 'Unread Notifications', value: unreadNotifs, icon: Bell, color: 'text-amber-500' },
             { label: 'Messages Sent', value: messages.length, icon: Package, color: 'text-brand-500' }
           ].map(({ label, value, icon: Icon, color }) => (

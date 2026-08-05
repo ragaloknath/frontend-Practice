@@ -122,7 +122,7 @@ export const InteractiveCalculator = ({ defaultRetail = 89.99, defaultBulk = 28.
           {/* Preset Quick Fill Buttons */}
           <div className="pt-2">
             <span className="text-[11px] text-gray-500 font-medium block mb-2">Preset Quick Quantity Tiers:</span>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               {[50, 200, 500, 1000, 2500].map(tier => (
                 <button
                   key={tier}
