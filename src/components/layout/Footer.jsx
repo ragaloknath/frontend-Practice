@@ -175,7 +175,7 @@ export const Footer = () => {
           <p>© {new Date().getFullYear()} Bulk Saves Hub Inc. All rights reserved.</p>
           <div className="flex space-x-6">
             <a href="#privacy" className="hover:underline">Privacy Policy</a>
-            <a href="#terms" className="hover:underline">Terms of Service</a>
+            <Link to="/terms" className="hover:underline">Terms of Service</Link>
             <a href="#escrow" className="hover:underline">Buyer Escrow Protection</a>
           </div>
         </div>

@@ -16,6 +16,7 @@ const SupplierDetails = lazy(() => import('../pages/SupplierDetails'));
 const Calculator = lazy(() => import('../pages/Calculator'));
 const About = lazy(() => import('../pages/About'));
 const Contact = lazy(() => import('../pages/Contact'));
+const Terms = lazy(() => import('../pages/Terms'));
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
 const ForgotPassword = lazy(() => import('../pages/ForgotPassword'));
@@ -54,6 +55,7 @@ export const AppRoutes = () => {
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
