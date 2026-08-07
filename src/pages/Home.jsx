@@ -11,6 +11,8 @@ import { ProductCard } from '../components/products/ProductCard';
 import { RatingStars } from '../components/common/RatingStars';
 import { CategoryIcon } from '../components/common/CategoryIcon';
 import { INITIAL_TESTIMONIALS, INITIAL_FAQS } from '../services/initialData';
+import BarChartWidget from '../components/common/BarChartWidget';
+import PieChartWidget from '../components/common/PieChartWidget';
 
 const STATS = [
   { value: '48,000+', label: 'Bulk Products Listed', icon: Package },
@@ -43,7 +45,48 @@ const BENEFITS = [
     title: 'Direct Factory Access',
     desc: 'Eliminate middlemen and sourcing brokers — connect directly with manufacturers and factory wholesalers.',
     color: 'from-purple-500 to-pink-600'
+  },
+  {
+    icon: Users,
+    title: 'Dedicated Buyer Support',
+    desc: 'Get personalized sourcing assistance from our wholesale experts for every bulk order and supplier match.',
+    color: 'from-sky-500 to-cyan-600'
+  },
+  {
+    icon: CheckCircle,
+    title: 'Secure Escrow Payments',
+    desc: 'Protect every transaction with escrow-backed checkout and dispute support for trusted bulk procurement.',
+    color: 'from-lime-500 to-emerald-600'
+  },
+  {
+    icon: Award,
+    title: 'Quality Assurance Programs',
+    desc: 'Access certified products with quality checks, sample approvals, and on-time delivery commitments.',
+    color: 'from-fuchsia-500 to-violet-600'
+  },
+  {
+    icon: Package,
+    title: 'Flexible MOQ & Logistics',
+    desc: 'Choose flexible minimum order quantities and logistics options to scale inventory without excess risk.',
+    color: 'from-indigo-500 to-blue-600'
   }
+];
+
+const SALES_DATA = [
+  { name: 'Jan', value: 400 },
+  { name: 'Feb', value: 520 },
+  { name: 'Mar', value: 680 },
+  { name: 'Apr', value: 720 },
+  { name: 'May', value: 860 },
+  { name: 'Jun', value: 940 }
+];
+
+const CATEGORY_SHARE = [
+  { name: 'Electronics', value: 45 },
+  { name: 'Apparel', value: 20 },
+  { name: 'Home', value: 15 },
+  { name: 'Beauty', value: 12 },
+  { name: 'Others', value: 8 }
 ];
 
 export default function Home() {
@@ -337,6 +380,23 @@ export default function Home() {
                 <ProductCard product={product} layout="grid" />
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CHARTS (Bar + Pie) ─── */}
+      <section className="py-16 bg-white dark:bg-[#090C12]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-500">Analytics</span>
+              <h2 className="text-2xl font-black text-gray-900 dark:text-white mt-1">Bulk Sourcing Insights</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <BarChartWidget data={SALES_DATA} />
+            <PieChartWidget data={CATEGORY_SHARE} />
           </div>
         </div>
       </section>
